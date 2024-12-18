@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>113306065_HW5</title>
+  <link rel="stylesheet" href="113306065_HW5.css">
+</head>
+<body>
+  <div class="main-container">
+    <div class="left-panel">
+      <div class="photo-panel"></div>
+      <div class="text-content">
+        <div class="about-me">
+          <h1 id="user-name">Tim Yang</h1>
+          <button id="edit-button" onclick="toggleEdit()">Edit</button>
+          <h2>ABOUT ME</h2>
+          <p>
+            I am a freshman in the Department of Management Information Systems
+            at National Chengchi University. I am very interested in studying
+            programming and computer science fundamentals. I have experience in
+            writing Java, HTML, CSS, JavaScript, and Python.
+          </p>
+        </div>
+        <div class="contact-info">
+          <h2>CONTACT</h2>
+          <p>113306065@g.nccu.edu.tw</p>
+        </div>
+        <img class="nccu-icon" src="nccu-icon.png" alt="NCCU Icon">
+      </div>
+    </div>
+    <div class="right-panel">
+      <section class="education">
+        <h2>Education</h2>
+        <div class="timeline">
+          <div class="timeline-item">
+            <span class="year">2024 - now</span>
+            <span class="description">
+              National Chengchi University, Department of MIS, Computer Science
+            </span>
+          </div>
+          <div class="timeline-item">
+            <span class="year">2022 - 2024</span>
+            <span class="description">
+              Taipei Municipal High School, Participated in computer science club
+            </span>
+          </div>
+          <div class="timeline-item">
+            <span class="year">2019 - 2022</span>
+            <span class="description">
+              Middle School Graduation, Started developing an interest in computer science and also coding
+            </span>
+          </div>
+        </div>
+      </section>
+      <section class="homework-list">
+        <h2>Homework List</h2>
+        <ul>
+          <li><a href="https://github.com/dancingdog123/homework-1" target="_blank">HW1 https://github.com/dancingdog123/homework-1</a></li>
+          <li><a href="https://github.com/dancingdog123/hw2" target="_blank">HW2 https://github.com/dancingdog123/hw2</a></li>
+          <li><a href="https://github.com/dancingdog123/homework-3" target="_blank">HW3 https://github.com/dancingdog123/homework-3</a></li>
+        </ul>
+      </section>
+      <section class="favorite-music">
+        <h2>Favorite Music</h2>
+        <div class="music-list" id="music-list">
+          <div class="music-item">
+            <a href="https://www.youtube.com/watch?v=q8AusW_Aduk" target="_blank"><img src="spotify-icon.jpg" alt="Song 1"></a>
+            <a href="https://www.youtube.com/watch?v=Qmj4iFeuEQ0" target="_blank"><img src="spotify-icon.jpg" alt="Song 2"></a>
+            <a href="https://www.youtube.com/watch?v=ufCoLHEvsmk" target="_blank"><img src="spotify-icon.jpg" alt="Song 3"></a>
+            <a href="https://www.youtube.com/watch?v=TP3moIiyZFI" target="_blank"><img src="spotify-icon.jpg" alt="Song 4"></a>
+          </div>
+        </div>
+        <div id="music-form-container"></div>
+        <button id="add-music-button">Add</button>
+        <p class="note">
+          These are my favorite songs. Feel free to explore and enjoy the tunes!
+        </p>
+      </section>
+    </div>
+  </div>
+  <script>
+    function toggleEdit() {
+      const nameElement = document.getElementById("user-name");
+      const button = document.getElementById("edit-button");
+      if (button.textContent === "Edit") {
+        const currentName = nameElement.textContent;
+        nameElement.innerHTML = `<input id="name-input" type="text" value="${currentName}">`;
+        button.textContent = "Save";
+      } else {
+        const input = document.getElementById("name-input");
+        const newName = input.value;
+        nameElement.textContent = newName;
+        button.textContent = "Edit";
+      }
+    }
+    const musicList = document.getElementById("music-list");
+    const formContainer = document.getElementById("music-form-container");
+    const addMusicButton = document.getElementById("add-music-button");
+
+    addMusicButton.addEventListener("click", () => {
+      if (!document.getElementById("music-form")) {
+        formContainer.innerHTML = `
+          <form id="music-form">
+            <label for="music-link">Music Link:</label>
+            <input type="url" id="music-link" placeholder="Enter music link" required><br>
+            <label for="music-title">Music Title:</label>
+            <input type="text" id="music-title" placeholder="Enter music title" required><br>
+            <button type="submit">Submit</button>
+          </form>
+        `;
+        const form = document.getElementById("music-form");
+        form.addEventListener("submit", (event) => {
+          event.preventDefault();
+          const musicLink = document.getElementById("music-link").value;
+          const musicTitle = document.getElementById("music-title").value;
+          if (!musicLink || !musicTitle) {
+            alert("Please fill in both fields.");
+            return;
+          }
+          const newMusicItem = document.createElement("div");
+          newMusicItem.classList.add("music-item");
+          newMusicItem.innerHTML = `
+            <a href="${musicLink}" target="_blank">
+              <img src="spotify-icon.jpg" alt="${musicTitle}">
+            </a>
+            <p>${musicTitle}</p>
+          `;
+          musicList.appendChild(newMusicItem);
+          formContainer.innerHTML = "";
+        });
+      }
+    });
+  </script>
+</body>
+</html>
